@@ -31,7 +31,14 @@ export const App = () => {
                         <h2 className="mx-auto">Pending</h2>
                     </div>    
                     <div id="visualPendingTasks">
-
+                        {pendingTaskList.map((item, index) => (
+                            <div className="d-flex"  key={index}>
+                                <h3>{item}</h3>
+                                <div className="me-1 ms-auto">
+                                    <h1>X</h1>
+                                </div>
+                            </div>
+                        ))}
                     </div>
                 </div>
                 <div id="completedList" className="col-6">
