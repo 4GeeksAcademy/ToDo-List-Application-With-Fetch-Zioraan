@@ -3,17 +3,22 @@ import React, { useState } from "react";
 
 export const App = () => {
     let pendingListArray = [];
-    let completedListArray = [];
     const[inputValue, setInputValue] = useState('');
     const[pendingTaskList, setPendingTaskList] = useState(pendingListArray);
-    const[completedTaskList, setCompletedTaskList] = useState(completedListArray);
     
     const addToPendingTask = () => {
         if (inputValue !== "") {
-            setPendingTaskList((prevPendingTaskList) => [...prevPendingTaskList, inputValue]);
+            let taskObject = {label: inputValue, done: false}
+            setPendingTaskList((prevPendingTaskList) => [...prevPendingTaskList, taskObject]);
             setInputValue('');
         }
     };
+
+    const removeToDoItem = (task) => {
+        setPendingTaskList((pendingTaskList) => {
+            return pendingTaskList.filter((toDo) => toDo.label !== task)
+        })
+    }
 
     return (
         <div className="container justify-content-center">   
@@ -33,20 +38,12 @@ export const App = () => {
                     <div id="visualPendingTasks">
                         {pendingTaskList.map((item, index) => (
                             <div className="d-flex"  key={index}>
-                                <h3>{item}</h3>
+                                <h3>{item.label}</h3>
                                 <div className="me-1 ms-auto">
-                                    <h1>X</h1>
+                                    <h1 onClick={() => removeToDoItem(item.label)}>X</h1>
                                 </div>
                             </div>
                         ))}
-                    </div>
-                </div>
-                <div id="completedList" className="col-6">
-                    <div className="d-flex">
-                        <h2 className="mx-auto">Completed</h2>
-                    </div>
-                    <div id="visualCompletedTasks">
-                        
                     </div>
                 </div>
             </div>
