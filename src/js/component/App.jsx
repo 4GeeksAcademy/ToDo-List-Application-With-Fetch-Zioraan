@@ -2,9 +2,8 @@ import React, { useState } from "react";
 
 
 export const App = () => {
-    let pendingListArray = [];
     const[inputValue, setInputValue] = useState('');
-    const[pendingTaskList, setPendingTaskList] = useState(pendingListArray);
+    const[pendingTaskList, setPendingTaskList] = useState([]);
     
     const addToPendingTask = () => {
         if (inputValue !== "") {
