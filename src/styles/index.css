@@ -1,16 +1,59 @@
 .closer{
-    color: red;
+    color: pink;
+}
+
+body{
+    background-color: lightgray;
 }
 
 .taskContainer {
-    background-color: silver;
-    border: 2px solid black;
+    border-bottom: 1px solid lightgrey;
+    height: 5vh;
+    font-size: 3vh;
+    font-weight: 100;
+    color: gray;
 }
 
 .title{
     font-size: 20vh;
-    color: ;
+    color: tan;
 }
+
+.inputDiv{
+    border-bottom: 1px solid lightgrey;
+}
+
 input{
     width: 50%;
+    height: 5vh;
+    font-size: 3vh;
+    border: none;
+    color: darkgray;
+}
+
+.numberLeft{
+    color:lightgray;
+    font-weight: lighter;
+    margin: 0 0 0 1vh;
+}
+
+.firstEdge {
+    background-color: white;
+    width: 99%;
+    height: .5vh;
+}
+
+.secondEdge {
+    background-color: white;
+    width: 98%;
+    height: .5vh;
+}
+
+.firstEdge, .secondEdge, .listHolder {
+    box-shadow: 0px 3px 0px lightgray;
+    border-bottom: 2px solid lightgray;
+}
+
+input:focus{
+    outline: none;
 }
