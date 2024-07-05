@@ -1,12 +1,16 @@
+.closer{
+    color: red;
+}
 
-/* 
+.taskContainer {
+    background-color: silver;
+    border: 2px solid black;
+}
 
-    You can write your own styles here...
-    
-    
-    ...Or you can use the import command to include 
-    other sylesheets into your bunde as well, e.j:
-    
-    import 'relative/path/to/stylesheet.scss';
-
-*/
+.title{
+    font-size: 20vh;
+    color: ;
+}
+input{
+    width: 50%;
+}
