@@ -1,36 +1,64 @@
 import React, { useState } from "react";
 
 
+
 export const App = () => {
     const[inputValue, setInputValue] = useState('');
     const[pendingTaskList, setPendingTaskList] = useState([]);
     
-    const addToPendingTask = () => {
+    async function fetchTodos() {
+        const response = await fetch(
+            'https://playground.4geeks.com/todo/users/zioraan', {
+            method: "GET",
+            
+            }
+        )
+        const user = await response.json();
+        setPendingTaskList(user.todos)
+    }
+    
+    async function addToDos(AddedToDo) {
+        const response = await fetch(
+            'https://playground.4geeks.com/todo/todos/zioraan', {
+                method: "POST",
+                body: JSON.stringify(AddedToDo),
+                headers: {
+                "Content-Type": "application/json"
+                }
+    })}
+
+    async function removeToDos(removedToDo) {
+        const response = await fetch(
+            `https://playground.4geeks.com/todo/todos/${removedToDo}`, {
+                method: "DELETE",
+                
+            }
+        )
+        fetchTodos();
+    }
+    
+    const addToPendingTask = (e) => {
         if (inputValue !== "") {
-            let taskObject = {label: inputValue, done: false}
-            setPendingTaskList((prevPendingTaskList) => [...prevPendingTaskList, taskObject]);
+            e.preventDefault();
+            let taskObject = {label: inputValue, is_done: false}
+            addToDos(taskObject)
             setInputValue('');
-            setItemsLeft(pendingTaskList.length + 1);
+            fetchTodos();
         }
     };
 
-    const removeToDoItem = (task) => {
-        setPendingTaskList((pendingTaskList) => {    
-            return pendingTaskList.filter((toDo) => toDo.label !== task)
-            
-        })
-    }
-
     return (
         <div className="container justify-content-center">   
+            <button onClick={fetchTodos}>Press To Begin</button>
             <div className="d-flex">   
-                <p className="h-75 mx-auto mt-5 title">Todos</p>
+                <p className="h-75 mx-auto mt-5 title">Todos</p>    
             </div> 
             <div className="bg-white">
                 <div className="d-flex mx-auto inputDiv">
-                    <input type="text" onChange={e => setInputValue(e.target.value)} 
-                        onKeyDown={e => {if (e.key === "Enter")addToPendingTask();}} value={inputValue} className="ms-5 mt-5 mb-3"
-                        placeholder="What needs to be done?"/>
+                    <form onSubmit={addToPendingTask}>
+                        <input type="text" onChange={e => setInputValue(e.target.value)} 
+                            value={inputValue} className="ms-5 mt-5 mb-3" placeholder="What needs to be done?"/>
+                    </form>    
                 </div> 
                 <div className="mt-5 listHolder">
                     <div id="visualPendingTasks" className="col-12">
@@ -38,7 +66,7 @@ export const App = () => {
                         <div className="d-flex justify-content-between taskContainer"  key={index}>
                             <h2 className="ms-5 mt-2" >{item.label}</h2>
                             <div className="ms-auto">
-                                <h1 className="closer me-3" onClick={() => removeToDoItem(item.label)}>X</h1>
+                                <h1 className="closer me-3" onClick={() => removeToDos(item.id)}>X</h1>
                             </div>
                         </div>
                         ))}
